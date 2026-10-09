@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMITE Wiki & Database Engine</title>
+  <style>
+    @font-face {
+      font-family: 'PenumbraFlareStd-Semibold';
+      src: url('data:font/woff2;charset=utf-8;base64,d09GMgABAAAAAD9UABAAAAAAyIgAAD7xAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGTQ/RkZUTRwaGBvnThyHPgZgAIUYEQgKgfoggcd6C4QAAAE2AiQDh3wEIAWMeAeEcRtMrBXs2AtuByKQ7rasKIKNQ0ABfj3Z/58S6Bi7twag1IIJ4bKyq9WtLiV1umuNTKW5oduhqtBMKBh3NRvlsMMWKwrDgj/7Rzh4zWwnjwfuWyarmGXsFw9cXvLvf1hIDB7hGIVi6wiNfZLrg3b9/wlGuXOzM9nsZsELz7PZQZ2699UJLdEKyPD83Hr7G9sYnzFgVOSiYNTY2BjbiM4hYJItWIhKqViIYhxioWLUiRF5QVCt/dszt584loQJK2IJpABQxUa4sCVQDI7Kx6ZiCdXby7la+UauevWhA4bxSZMCT5seSPk8H93zOzNzZ/cl+omCKNUkj7lMWtItJB+u5FJxvD3EdVrhh8XQwou88YR1QNcmKDj4N2rTcEznKlOBJtQOPALzhIwO4ilyySX34R6u5H8+tKWt7FRSLk+3ayQSBIA6g6p86f82SCxpDkzwvzbLr5nD/yV797BKnTqvz6VpBg4QPY1mHRwlbMAjRoHtTXVAqcN/b9OqNvvfsky7d2eVSkORVVs9kI0viAA4Rsj0X7db3f0ljdS2r9StkXFJ0qCG5QW3+6u/ZPuIKFrL8oDhGDDc6Aiiq0172ZMfhRhytvGER5DlgFl44YYbREfhhdEF0fn+fq/cAEb7TjOHr9Sl1HH2Pf83tJqnkOx1BwluC8ET+Ujmb07c3JBtbulpV/8fM60NZNu5PUHBCch/ojL1svpaCALwAZxEd21NzM7LzswCiL2bCrIAlgsACMoXIq1LEACAAPD52T8JADz5XVcFAPj8y927AAEIAREACuAACiAAocI6LOYxDDvmnm15TenzAoIbSIkmGCK/+mXaCNTIw9dgtxm3Pfc1LMM7BJESdTESd+NtKoUHXDst0z0FWZJVWZ99OZWn1fRfeY0IqNgv8z0cxxoNEox3tj7ZpXeC3sPv4w/x5+oXnkGwjvrVw6/bk7FIlpAj5LtT6LdixahMGmP+pPndJOkUvhh7BBnGZLJD6XFn41JS6cSh+b1hpCLaOt01HS2Ds2ubKLlQCxJN2gfFoFIaG8J4RSWueu1gkqG4UjUtpseJSwOtC63g16Gb3Kgv5QFLghKZGBxi0S3hybRO4QhKhb42H5BbrFyURlzWV8PSHbU1zf4K+ySfh2IijpXL5aiUY0Nr+BW9EKWGkfFG22HT8U2pkmkhE+gmdIa0oQ9EKY1tpQKBuVO9e4DvVRlX6nU/4EGA5xtT7iZ0D7kYlPtK5tGQJ0n1K7gUl+JSXLpnqceTestSuiteV7sv6RjDCA2ucM52AAN0AANkADKaEpGIbUQd0gv5ZyXzPeioJP+7D3VMGqxkVYYTfFMM0xjV8QQFzyknvaKpUC0YRxCSiSmpGkZWUZOXkFRSVlFp34GG2qYEabaaLOdTnrWq971ng986HNfoI/BofvbvZhiFqCaIIHBEnN/Fd9ZRuXR+Rsu0TtKDNAJqdIUfs2UyTVfnWDwdZgEKf68mOnc0G5JFb2uqRLFwLhMh2t9ifJTKcK/TTqsQYbqXFp1PS9mOt8vKUGMVA7EzqEOAdN0SH5NSwB/Xux0/p8HLjFMM/02UZIOZWEkEmTiiZAkUGBEV7qzN2l2Ah9mnD77eychvNjp9nCSLQ4P24q/cH/Xmmz0UHt6bf68LKpcqu1hi+EI3IxhD+O8mOm8uUV+VlAexhV/XvzpRQ4+FuN2xZ8Xf/qRKzHTrQynzz7A8HGSZ/6ws3qVR+VGwZ+XvcePz@font-face {
+      font-family: 'PenumbraFlareStd-Semibold';
+      src: url('data:font/woff2;charset=utf-8;base64,d09GMgABAAAAAD9UABAAAAAAyIgAAD7xAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGTQ/RkZUTRwaGBvnThyHPgZgAIUYEQgKgfoggcd6C4QAAAE2AiQDh3wEIAWMeAeEcRtMrBXs2AtuByKQ7rasKIKNQ0ABfj3Z/58S6Bi7twag1IIJ4bKyq9WtLiV1umuNTKW5oduhqtBMKBh3NRvlsMMWKwrDgj/7Rzh4zWwnjwfuWyarmGXsFw9cXvLvf1hIDB7hGIVi6wiNfZLrg3b9/wlGuXOzM9nsZsELz7PZQZ2699UJLdEKyPD83Hr7G9sYnzFgVOSiYNTY2BjbiM4hYJItWIhKqViIYhxioWLUiRF5QVCt/dszt584loQJK2IJpABQxUa4sCVQDI7Kx6ZiCdXby7la+UauevWhA4bxSZMCT5seSPk8H93zOzNzZ/cl+omCKNUkj7lMWtItJB+u5FJxvD3EdVrhh8XQwou88YR1QNcmKDj4N2rTcEznKlOBJtQOPALzhIwO4ilyySX34R6u5H8+tKWt7FRSLk+3ayQSBIA6g6p86f82SCxpDkzwvzbLr5nD/yV797BKnTqvz6VpBg4QPY1mHRwlbMAjRoHtTXVAqcN/b9OqNvvfsky7d2eVSkORVVs9kI0viAA4Rsj0X7db3f0ljdS2r9StkXFJ0qCG5QW3+6u/ZPuIKFrL8oDhGDDc6Aiiq0172ZMfhRhytvGER5DlgFl44YYbREfhhdEF0fn+fq/cAEb7TjOHr9Sl1HH2Pf83tJqnkOx1BwluC8ET+Ujmb07c3JBtbulpV/8fM60NZNu5PUHBCch/ojL1svpaCALwAZxEd21NzM7LzswCiL2bCrIAlgsACMoXIq1LEACAAPD52T8JADz5XVcFAPj8y927AAEIAREACuAACiAAocI6LOYxDDvmnm15TenzAoIbSIkmGCK/+mXaCNTIw9dgtxm3Pfc1LMM7BJESdTESd+NtKoUHXDst0z0FWZJVWZ99OZWn1fRfeY0IqNgv8z0cxxoNEox3tj7ZpXeC3sPv4w/x5+oXnkGwjvrVw6/bk7FIlpAj5LtT6LdixahMGmP+pPndJOkUvhh7BBnGZLJD6XFn41JS6cSh+b1hpCLaOt01HS2Ds2ubKLlQCxJN2gfFoFIaG8J4RSWueu1gkqG4UjUtpseJSwOtC63g16Gb3Kgv5QFLghKZGBxi0S3hybRO4QhKhb42H5BbrFyURlzWV8PSHbU1zf4K+ySfh2IijpXL5aiUY0Nr+BW9EKWGkfFG22HT8U2pkmkhE+gmdIa0oQ9EKY1tpQKBuVO9e4DvVRlX6nU/4EGA5xtT7iZ0D7kYlPtK5tGQJ0n1K7gUl+JSXLpnqceTestSuiteV7sv6RjDCA2ucM52AAN0AANkADKaEpGIbUQd0gv5ZyXzPeioJP+7D3VMGqxkVYYTfFMM0xjV8QQFzyknvaKpUC0YRxCSiSmpGkZWUZOXkFRSVlFp34GG2qYEabaaLOdTnrWq971ng986HNfoI/BofvbvZhiFqCaIIHBEnN/Fd9ZRuXR+Rsu0TtKDNAJqdIUfs2UyTVfnWDwdZgEKf68mOnc0G5JFb2uqRLFwLhMh2t9ifJTKcK/TTqsQYbqXFp1PS9mOt8vKUGMVA7EzqEOAdN0SH5NSwB/Xux0/p8HLjFMM/02UZIOZWEkEmTiiZAkUGBEV7qzN2l2Ah9mnD77eychvNjp9nCSLQ4P24q/cH/Xmmz0UHt6bf68LKpcqu1hi+EI3IxhD+O8mOm8uUV+VlAexhV/XvzpRQ4+FuN2xZ8Xf/qRKzHTrQynzz7A8HGSZ/6ws3qVR+VGwZ+XvcePz') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --wiki-gold-title: #f3d078;
+      --wiki-gold-border: #8c7343;
+      --wiki-gold-subtle: #4a3c22;
+      --wiki-blue-text: #4da6ff;
+      --wiki-bg-dark: #080c14;
+      --wiki-card-bg: rgba(24, 32, 48, 0.75);
+      --wiki-header-bg: linear-gradient(180deg, #222b3e 0%, #151c2a 100%);
+      --wiki-table-border: #334158;
+    }
+
+    *, *::before, *::after, body, button, input, select, textarea, span, div, h1, h2, h3, h4, td, th {
+      font-family: 'PenumbraFlareStd-Semibold', sans-serif !important;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--wiki-bg-dark);
+      color: #d1d5db;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+    }
+
+    body.edit-mode-off .edit-only,
+    body.edit-mode-off .card-edit-btn,
+    body.edit-mode-off .floating-edit-btn {
+      display: none !important;
+    }
+
+    /* TOP HUD */
+    .smite-top-hud {
+      height: 48px;
+      background: linear-gradient(180deg, #111722 0%, #06090e 100%);
+      border-bottom: 2px solid var(--wiki-gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .hud-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .smite-back-btn {
+      background: linear-gradient(180deg, #1e2838 0%, #0a0f18 100%);
+      border: 1px solid var(--wiki-gold-border);
+      color: var(--wiki-gold-title);
+      padding: 4px 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    .wiki-title {
+      font-size: 1.1rem;
+      color: var(--wiki-gold-title);
+      letter-spacing: 1px;
+    }
+
+    #mainBgUploadHeader {
+      display: none;
+    }
+
+    body.on-screen-main #mainBgUploadHeader {
+      display: block;
+    }
+
+    .smite-viewport {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* MAIN MENU */
+    .screen-main-menu {
+      width: 100%;
+      min-height: calc(100vh - 86px);
+      display: flex;
+      background: linear-gradient(rgba(4,6,8,0.7), rgba(4,6,8,0.85)), var(--bg-main-img, url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop')) center/cover no-repeat;
+      padding: 30px 20px;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .smite-nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+    }
+
+    .nav-item {
+      font-size: 1.6rem;
+      color: #e2e8f0;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.2s;
+    }
+
+    .nav-item:hover {
+      color: var(--wiki-gold-title);
+      transform: scale(1.05);
+    }
+
+    /* ROSTER */
+    .screen-roster {
+      width: 100%;
+      min-height: calc(100vh - 86px);
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .roster-header {
+      font-size: 1.3rem;
+      color: var(--wiki-gold-title);
+      border-bottom: 1px solid var(--wiki-gold-border);
+      padding-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .gods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 18px;
+      width: 100%;
+    }
+
+    .god-card-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card-edit-btn {
+      position: absolute;
+      top: -10px;
+      right: -6px;
+      background: rgba(13, 17, 26, 0.95);
+      border: 1px solid var(--wiki-gold-border);
+      color: var(--wiki-gold-title);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 0 6px #000;
+    }
+
+    /* CARDS DE SELECAO DE DEUS */
+    .smite-god-select-card {
+      width: 100%;
+      aspect-ratio: 0.75;
+      border: 1px solid var(--wiki-gold-border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.9);
+      background-image: linear-gradient(180deg, rgba(0,0,0,0.1) 40%, rgba(5,8,15,0.85) 100%), var(--card-bg-url);
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      border-radius: 2px;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .smite-god-select-card:hover {
+      transform: scale(1.03);
+      border-color: var(--wiki-gold-title);
+      box-shadow: 0 0 10px rgba(243, 208, 120, 0.4);
+    }
+
+    .god-select-card-name {
+      width: 100%;
+      padding: 12px 4px 6px 4px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.95) 100%);
+      text-shadow: 0 1px 4px rgba(0,0,0,1);
+    }
+
+    /* CARDS DE APARÊNCIAS */
+    .smite-skin-card-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .smite-skin-card {
+      width: 100%;
+      aspect-ratio: 0.75;
+      border: 1px solid var(--wiki-gold-border);
+      box-shadow: 0 0 8px rgba(0,0,0,0.9);
+      background-image: linear-gradient(180deg, rgba(0,0,0,0.15) 30%, rgba(5,8,15,0.9) 100%), var(--skin-bg-url);
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    }
+
+    .smite-skin-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      border-color: var(--wiki-gold-title);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8), 0 0 10px rgba(243, 208, 120, 0.3);
+    }
+
+    .smite-skin-card:active {
+      transform: scale(0.97);
+      filter: brightness(1.2);
+    }
+
+    .skin-card-banner {
+      width: 90%;
+      margin: 0 auto 6px auto;
+      padding: 3px 4px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      border-radius: 1px;
+      border: none;
+      border-bottom: 0.15px solid rgba(255,255,255,0.15);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.1), 0 3px 8px rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .skin-card-banner span {
+      display: inline-block;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 0 1px rgba(0,0,0,1);
+    }
+
+    .tier-padrao { display: none; }
+    .tier-limitado { background: linear-gradient(180deg, rgba(120, 40, 180, 0.45) 30%, rgba(40, 10, 80, 0.65) 100%); border: 0.5px solid rgba(168, 85, 247, 0.25); }
+    .tier-unlimited { background: linear-gradient(180deg, rgba(30, 150, 75, 0.45) 30%, rgba(10, 60, 25, 0.65) 100%); border: 0.5px solid rgba(74, 222, 128, 0.25); }
+    .tier-crossover { background: linear-gradient(180deg, rgba(15, 150, 220, 0.45) 30%, rgba(5, 50, 90, 0.65) 100%); border: 0.5px solid rgba(56, 189, 248, 0.25); }
+    .tier-crossgen { background: linear-gradient(180deg, rgba(220, 155, 10, 0.48) 30%, rgba(90, 60, 2, 0.65) 100%); border: 0.5px solid rgba(250, 204, 21, 0.3); }
+    .tier-promocional { background: linear-gradient(180deg, rgba(210, 30, 105, 0.45) 30%, rgba(80, 10, 40, 0.65) 100%); border: 0.5px solid rgba(244, 114, 182, 0.25); }
+    .tier-exclusivo { background: linear-gradient(180deg, rgba(200, 135, 45, 0.48) 30%, rgba(75, 45, 10, 0.65) 100%); border: 0.5px solid rgba(234, 179, 8, 0.3); }
+
+    .skin-card-bottom-title {
+      font-size: 0.85rem;
+      color: #f3d078;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* TELA DE VISUALIZACAO DE DEUSES */
+    .screen-god-view {
+      width: 100%;
+      min-height: calc(100vh - 86px);
+      display: none;
+      grid-template-columns: 220px 1fr;
+      padding: 15px;
+      gap: 15px;
+    }
+
+    @media (max-width: 850px) {
+      .screen-god-view { grid-template-columns: 1fr; }
+    }
+
+    .god-sidebar {
+      background: var(--wiki-card-bg);
+      border: 1px solid var(--wiki-gold-border);
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+      gap: 2px;
+    }
+
+    .god-tab-btn {
+      background: transparent;
+      border: none;
+      border-left: 3px solid transparent;
+      color: #94a3b8;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      text-align: left;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .god-tab-btn.active {
+      background: linear-gradient(90deg, rgba(77, 166, 255, 0.2) 0%, transparent 100%);
+      border-left-color: var(--wiki-blue-text);
+      color: #fff;
+    }
+
+    .god-stage {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      padding: 20px;
+      border: 1px solid var(--wiki-gold-border);
+      transition: background-image 0.6s ease-in-out, filter 0.4s ease;
+    }
+
+    .god-stage.skin-change-anim {
+      animation: stageBgFade 0.6s ease-in-out;
+    }
+
+    @keyframes stageBgFade {
+      0% { opacity: 0.5; filter: brightness(0.6); }
+      100% { opacity: 1; filter: brightness(1); }
+    }
+
+    .god-panel-card {
+      width: 100%;
+      max-width: 650px;
+      background: rgba(18, 25, 40, 0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--wiki-gold-border);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      border-radius: 2px;
+    }
+
+    #godTabSkins {
+      background: linear-gradient(135deg, rgba(16, 22, 36, 0.9) 0%, rgba(8, 12, 20, 0.95) 100%);
+      animation: panelFadeIn 0.4s ease-out;
+      border: 1px solid var(--wiki-gold-border);
+    }
+
+    @keyframes panelFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .about-icons-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--wiki-table-border);
+    }
+
+    .about-icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .about-icon-img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
+    }
+
+    .about-icon-value {
+      font-size: 0.95rem;
+      color: var(--wiki-blue-text);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+
+    /* PACOTE DE VOZ */
+    .screen-voicebank-view {
+      width: 100%;
+      min-height: calc(100vh - 86px);
+      display: none;
+      padding: 20px;
+      position: relative;
+    }
+
+    .voicebank-container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .voicebank-container { grid-template-columns: 1fr; }
+    }
+
+    .wiki-side-box {
+      background: #080c14;
+      border: 1px solid var(--wiki-gold-border);
+      box-shadow: 0 0 10px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      gap: 8px;
+    }
+
+    .wiki-title-header {
+      background: var(--wiki-header-bg);
+      border: 1px solid var(--wiki-table-border);
+      color: var(--wiki-gold-title);
+      font-size: 1.05rem;
+      text-align: center;
+      padding: 10px 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .wiki-god-image {
+      width: 100%;
+      aspect-ratio: 0.75;
+      object-fit: cover;
+      border: 1px solid var(--wiki-table-border);
+    }
+
+    .wiki-summary-box {
+      background: #080c14;
+      border: 1px solid var(--wiki-gold-border);
+      position: relative;
+      margin-top: 4px;
+    }
+
+    .wiki-summary-title {
+      background: var(--wiki-header-bg);
+      color: var(--wiki-gold-title);
+      font-size: 1rem;
+      text-align: center;
+      padding: 8px;
+      border-bottom: 1px solid var(--wiki-gold-border);
+    }
+
+    .wiki-summary-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .wiki-summary-table td {
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      border: 1px solid var(--wiki-table-border);
+    }
+
+    .wiki-summary-label {
+      background: rgba(18, 25, 41, 0.95);
+      color: #e2e8f0;
+      width: 50%;
+    }
+
+    .wiki-summary-val {
+      background: #080c14;
+      color: #fff;
+      text-align: left;
+    }
+
+    .wiki-summary-val.blue-link {
+      color: var(--wiki-blue-text);
+    }
+
+    .wiki-btn-menu {
+      background: var(--wiki-header-bg);
+      border: 1px solid var(--wiki-table-border);
+      color: var(--wiki-blue-text);
+      padding: 10px;
+      font-size: 0.9rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+    }
+
+    .wiki-btn-menu.active {
+      background: #1e293b;
+      color: var(--wiki-gold-title);
+      border-color: var(--wiki-gold-border);
+    }
+
+    /* ARVORE DE CATEGORIAS */
+    .tree-category-box {
+      background: rgba(12, 18, 28, 0.85);
+      border: 1px solid var(--wiki-gold-border);
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 2px;
+    }
+
+    .tree-category-title {
+      color: var(--wiki-gold-title);
+      font-size: 1rem;
+      border-bottom: 1px solid var(--wiki-table-border);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tree-subcategory-box {
+      margin-left: 14px;
+      border-left: 2px solid var(--wiki-blue-text);
+      padding-left: 10px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tree-subcategory-title {
+      color: var(--wiki-blue-text);
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .voice-line-item {
+      background: rgba(20, 28, 44, 0.6);
+      border: 1px solid var(--wiki-table-border);
+      padding: 8px 12px;
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* BORDAS DAS CAIXAS VGS (ESTILO WIKI SMITE) */
+    .vgs-outside-title {
+      color: var(--wiki-gold-title);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--wiki-gold-border);
+      padding-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .vgs-wiki-box {
+      background: #080c14;
+      border: 1px solid var(--wiki-gold-border);
+      box-shadow: 0 0 10px rgba(0,0,0,0.8);
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 2px;
+    }
+
+    .vgs-wiki-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #080c14;
+      border: 1px solid #334158;
+    }
+
+    .vgs-wiki-table th {
+      background: linear-gradient(180deg, #1b2433 0%, #101724 100%);
+      color: var(--wiki-gold-title);
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      border: 1px solid #334158;
+      text-transform: uppercase;
+    }
+
+    .vgs-wiki-table td {
+      padding: 10px 12px;
+      border: 1px solid #232d3f;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      background: #080c14;
+      vertical-align: middle;
+    }
+
+    .vgs-code-cell {
+      width: 90px;
+      color: var(--wiki-blue-text);
+      font-size: 0.95rem;
+      text-align: left !important;
+    }
+
+    .vgs-outcome-cell {
+      text-align: left;
+    }
+
+    .vgs-outcome-cell.is-category-result {
+      text-align: center !important;
+    }
+
+    .vgs-category-highlight {
+      color: var(--wiki-blue-text);
+      text-align: center;
+      display: block;
+      width: 100%;
+    }
+
+    .vgs-play-btn {
+      background: rgba(22, 30, 46, 0.8);
+      border: 1px solid var(--wiki-gold-border);
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 8px;
+      transition: all 0.2s ease;
+      color: #f97316;
+    }
+
+    .vgs-play-btn:hover {
+      background: rgba(249, 115, 22, 0.2);
+      border-color: #f97316;
+      transform: scale(1.08);
+    }
+
+    .vgs-play-btn.is-playing {
+      background: rgba(34, 197, 94, 0.25);
+      border-color: #22c55e;
+      color: #22c55e;
+      animation: pulsePlaying 1s infinite alternate;
+    }
+
+    @keyframes pulsePlaying {
+      from { box-shadow: 0 0 4px rgba(34, 197, 94, 0.4); }
+      to { box-shadow: 0 0 12px rgba(34, 197, 94, 0.9); }
+    }
+
+    .audio-svg-icon {
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    .smite-input, .smite-select, .smite-textarea {
+      background: #090e17;
+      border: 1px solid var(--wiki-gold-border);
+      color: #fff;
+      padding: 8px 10px;
+      font-size: 0.88rem;
+      outline: none;
+      width: 100%;
+    }
+
+    .smite-btn-sm {
+      background: var(--wiki-header-bg);
+      border: 1px solid var(--wiki-gold-border);
+      color: var(--wiki-gold-title);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .smite-btn-danger {
+      background: linear-gradient(180deg, #991b1b 0%, #450a0a 100%);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+    }
+
+    /* BOTÃO FLUTUANTE */
+    .floating-page-edit-btn {
+      position: fixed;
+      bottom: 50px;
+      right: 20px;
+      background: linear-gradient(180deg, #2a384f 0%, #0d1522 100%);
+      border: 2px solid var(--wiki-gold-title);
+      color: var(--wiki-gold-title);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 150;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+      transition: transform 0.2s;
+    }
+
+    .floating-page-edit-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+
+    .modal-box {
+      background: #090e17;
+      border: 2px solid var(--wiki-gold-border);
+      padding: 20px;
+      width: 90%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+
+    .smite-bottom-hud {
+      height: 38px;
+      background: linear-gradient(180deg, #121929 0%, #050811 100%);
+      border-top: 2px solid var(--wiki-gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      font-size: 0.8rem;
+      color: var(--wiki-gold-title);
+    }
+  </style>
+</head>
+<body class="on-screen-main">
+
+  <!-- HUD SUPERIOR -->
+  <div class="smite-top-hud">
+    <div class="hud-left">
+      <button class="smite-back-btn" id="backBtn" onclick="handleBack()">◄</button>
+      <div class="wiki-title">SMITE WIKI & DATABASE</div>
+    </div>
+    <div id="mainBgUploadHeader" class="edit-only">
+      <label class="file-upload-btn smite-btn-sm" style="position:relative; overflow:hidden; display:inline-block;">
+        📷 Mudar Fundo
+        <input type="file" accept="image/*" onchange="uploadMainBg(event)" style="position:absolute; left:0; top:0; opacity:0; width:100%; height:100%; cursor:pointer;">
+      </label>
+    </div>
+  </div>
+
+  <!-- VIEWPORT PRINCIPAL -->
+  <div class="smite-viewport">
+
+    <!-- MENU INICIAL -->
+    <div class="screen-main-menu" id="screenMain">
+      <div class="smite-nav-menu">
+        <div class="nav-item" onclick="openSection('gods')">DEUSES</div>
+        <div class="nav-item" onclick="openSection('voicebanks')">PACOTES DE VOZ</div>
+      </div>
+    </div>
+
+    <!-- ROSTER DE SELECAO DE DEUS -->
+    <div class="screen-roster" id="screenRoster">
+      <div class="roster-header">
+        <span id="rosterTitle">SELECIONE UM DEUS</span>
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="rosterSearch" class="smite-input" style="max-width: 200px;" placeholder="🔍 Buscar Deus..." oninput="renderRoster()">
+          <button class="smite-btn-sm edit-only" onclick="openGodModal(null)">+ Novo Deus</button>
+        </div>
+      </div>
+      <div class="gods-grid" id="rosterGrid"></div>
+    </div>
+
+    <!-- VISUALIZACAO DO DEUS -->
+    <div class="screen-god-view" id="screenGodView">
+      <div class="god-sidebar">
+        <button class="god-tab-btn active" id="tabBtnAbout" onclick="switchGodTab('about')">SOBRE</button>
+        <button class="god-tab-btn" id="tabBtnSkins" onclick="switchGodTab('skins')">APARÊNCIAS</button>
+        <button class="god-tab-btn" id="tabBtnLore" onclick="switchGodTab('lore')">HISTÓRIA</button>
+        <button class="god-tab-btn" onclick="goToVoicebankFromGod()">PACOTE DE VOZ</button>
+      </div>
+
+      <div class="god-stage" id="godStage">
+        <div style="display:flex; flex-direction:column; gap:2px; margin-bottom:5px;">
+          <div style="font-size:1.8rem; color:#fff;" id="extGodName">IZANAMI</div>
+          <div style="font-size:0.95rem; color:var(--wiki-blue-text);" id="extGodTitle">MATRON OF THE DEAD</div>
+        </div>
+
+        <!-- PAINEL SOBRE -->
+        <div class="god-panel-card" id="godTabAbout">
+          <button class="card-edit-btn edit-only" onclick="openAboutModal()">✏️</button>
+          
+          <div class="about-icons-row">
+            <div class="about-icon-item">
+              <img id="pantheonImg" class="about-icon-img" src="" alt="Panteão">
+              <span id="pantheonName" class="about-icon-value">Japonês</span>
+            </div>
+            <div class="about-icon-item">
+              <img id="typeImg" class="about-icon-img" src="" alt="Tipo">
+              <span id="typeName" class="about-icon-value">Físico</span>
+            </div>
+            <div class="about-icon-item">
+              <img id="classImg" class="about-icon-img" src="" alt="Classe">
+              <span id="className" class="about-icon-value">Caçador</span>
+            </div>
+          </div>
+
+          <div id="godMiniQuote" style="font-size:0.88rem; color:#cbd5e1; font-style:italic; border-left:2px solid var(--wiki-gold-border); padding-left:10px;">
+            Devastem o campo de batalha com foices mortais.
+          </div>
+          <div id="godDifficulty" style="font-size:0.85rem; color:var(--wiki-blue-text);">
+            DIFICULDADE - Média
+          </div>
+        </div>
+
+        <!-- PAINEL APARÊNCIAS -->
+        <div class="god-panel-card" id="godTabSkins" style="display:none;">
+          <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom: 4px;">
+            <button class="smite-btn-sm edit-only" onclick="openSkinModal(event, null)">+ Adicionar Skin</button>
+          </div>
+          <div class="gods-grid" id="godSkinsGrid"></div>
+        </div>
+
+        <div class="god-panel-card" id="godTabLore" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:var(--wiki-gold-title); font-size:0.95rem;">HISTÓRIA COMPLETA</span>
+            <button class="smite-btn-sm edit-only" onclick="openLoreModal()">✏️ Editar História</button>
+          </div>
+          <div id="godLoreText" style="font-size:0.88rem; color:#cbd5e1; line-height:1.6; margin-top:8px; white-space:pre-wrap;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACOTES DE VOZ -->
+    <div class="screen-voicebank-view" id="screenVoicebankView">
+      <div class="voicebank-container">
+        
+        <!-- SIDEBAR PACOTE DE VOZ -->
+        <div class="wiki-side-box">
+          <div class="wiki-title-header" id="vpTitle">IZANAMI</div>
+          <img id="vpImage" class="wiki-god-image" src="" alt="Skin">
+          
+          <div class="wiki-summary-box">
+            <button class="card-edit-btn edit-only" onclick="openVpHeaderModal()">✏️</button>
+            <div class="wiki-summary-title">Informações</div>
+            <table class="wiki-summary-table">
+              <tr>
+                <td class="wiki-summary-label">Dublador(a):</td>
+                <td class="wiki-summary-val" id="vpDubber">Lisa Ortiz</td>
+              </tr>
+              <tr>
+                <td class="wiki-summary-label">Data de Lançamento:</td>
+                <td class="wiki-summary-val blue-link" id="vpReleaseDate">15/09/2016</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="wiki-btn-menu active" id="btnVpGod" onclick="switchVPMode('god')">VOZ DO DEUS</div>
+          <div class="wiki-btn-menu" id="btnVpSkin" onclick="switchVPMode('skin')">VOZ POR APARÊNCIA</div>
+          <div class="wiki-btn-menu" id="btnVpAnnouncer" onclick="switchVPMode('announcer')">Pacotes de locutor</div>
+          <div class="wiki-btn-menu" id="btnVpVGS" onclick="switchVPMode('vgs')">Sistema guiado por voz</div>
+        </div>
+
+        <!-- PAINEL CONTEUDO PACOTE DE VOZ -->
+        <div class="vgs-tables-content" id="vpContentArea" style="position:relative;">
+
+          <!-- SECAO: VOZ DO DEUS & PACOTES DE LOCUTOR -->
+          <div id="vpDynamicPanel" style="background:#090e17; border:1px solid var(--wiki-gold-border); padding:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <h4 id="vpSectionTitle" style="color:var(--wiki-gold-title); font-size:1.1rem; text-transform:uppercase;">FALAS DE IZANAMI</h4>
+            </div>
+            <div id="voiceTreeContainer"></div>
+          </div>
+
+          <!-- SECAO: VOZ POR APARÊNCIA -->
+          <div id="vpSkinSelectionPanel" style="display:none; background:#090e17; border:1px solid var(--wiki-gold-border); padding:16px;">
+            <h4 style="color:var(--wiki-gold-title); margin-bottom:12px; font-size:1.1rem; text-transform:uppercase;">APARÊNCIAS</h4>
+            <div class="gods-grid" id="vpSkinCardsGrid"></div>
+          </div>
+
+          <!-- SECAO: VGS -->
+          <div id="vgsContainerGroup" style="display:none; flex-direction:column; gap:15px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 style="color:var(--wiki-gold-title); font-size:1.2rem;">VGS</h3>
+            </div>
+            <div id="vgsTablesList"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- BOTÃO FLUTUANTE DA PÁGINA -->
+      <button class="floating-page-edit-btn edit-only" id="globalPageEditBtn" onclick="handleGlobalEditClick()">✏️</button>
+    </div>
+
+  </div>
+
+  <!-- HUD INFERIOR -->
+  <div class="smite-bottom-hud">
+    <span id="statusAudio">STATUS: PRONTO</span>
+    <button style="background:none; border:none; color:var(--wiki-gold-title); font-size:1.2rem; cursor:pointer;" onclick="openSettingsModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="#f3d078" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle; cursor:pointer;">
+  <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.04.64.09.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+</svg></button>
+  </div>
+
+  <!-- MODAL CONFIGURACOES -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-box">
+      <div style="color:var(--wiki-gold-title); font-size:1.1rem; border-bottom:1px solid var(--wiki-gold-border); padding-bottom:6px;">CONFIGURAÇÕES</div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span>Modo Edição:</span>
+        <button class="smite-btn-sm" id="editToggleBtn" onclick="toggleEditModeSimple()">ON</button>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+        <label style="font-size:0.85rem; color:#94a3b8;">Volume do Áudio: <span id="volumeValText">100%</span></label>
+        <input type="range" id="audioVolumeSlider" min="0" max="100" value="100" class="smite-input" oninput="updateAudioVolume(this.value)">
+      </div>
+      <button class="smite-btn-sm" style="align-self:flex-end; margin-top:10px;" onclick="closeModal('settingsModal')">Fechar</button>
+    </div>
+  </div>
+
+  <!-- MODAL GERENCIAR FALAS E CATEGORIAS -->
+  <div class="modal-overlay" id="voiceCategoryLineModal">
+    <div class="modal-box">
+      <div style="color:var(--wiki-gold-title); font-size:1.1rem; border-bottom:1px solid var(--wiki-gold-border); padding-bottom:6px;">GERENCIADOR DE FALAS E CATEGORIAS</div>
+      
+      <div class="form-group">
+        <label>Tipo de Item:</label>
+        <select id="modalTreeType" class="smite-select" onchange="toggleTreeModalFields()">
+          <option value="line">Fala Individual</option>
+          <option value="category">Categoria Principal</option>
+          <option value="subcategory">Subcategoria</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="groupTreeTitle">
+        <label id="labelTreeTitle">Título / Nome:</label>
+        <input type="text" id="modalTreeTitle" class="smite-input">
+      </div>
+
+      <div class="form-group" id="groupTreeText">
+        <label>Texto da Fala:</label>
+        <input type="text" id="modalTreeText" class="smite-input">
+      </div>
+
+      <div class="form-group" id="groupTreeParent">
+        <label>Pertence a qual Categoria/Subcategoria?</label>
+        <select id="modalTreeParentSelect" class="smite-select"></select>
+      </div>
+
+      <div class="form-group" id="groupTreeAudio">
+        <label>Arquivo de Áudio:</label>
+        <input type="file" id="modalTreeAudioFile" class="smite-input" accept="audio/*">
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+        <button class="smite-btn-sm smite-btn-danger" id="btnDeleteTreeItem" onclick="deleteTreeItem()" style="display:none;">🗑️ Excluir</button>
+        <div style="display:flex; gap:8px; margin-left:auto;">
+          <button class="smite-btn-sm" onclick="closeModal('voiceCategoryLineModal')">Cancelar</button>
+          <button class="smite-btn-sm" onclick="saveTreeModal()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR VGS E TITULO -->
+  <div class="modal-overlay" id="editVgsModal">
+    <div class="modal-box">
+      <div style="color:var(--wiki-gold-title); font-size:1.1rem; border-bottom:1px solid var(--wiki-gold-border); padding-bottom:6px;">GERENCIAR VGS</div>
+      
+      <div class="form-group">
+        <label>Título da Caixa VGS (ex: VGS, Comandos Gerais):</label>
+        <input type="text" id="modalVgsBoxTitle" class="smite-input">
+      </div>
+
+      <hr style="border-color:var(--wiki-table-border); margin:4px 0;">
+
+      <div style="font-size:0.85rem; color:var(--wiki-gold-title);">ADICIONAR OU EDITAR COMANDO:</div>
+
+      <div class="form-group">
+        <label>Atalho VGS (ex: A, G, T, VV):</label>
+        <input type="text" id="modalVgsCode" class="smite-input">
+      </div>
+
+      <div class="form-group">
+        <label>Resultado / Texto:</label>
+        <input type="text" id="modalVgsResult" class="smite-input">
+      </div>
+
+      <div class="form-group">
+        <label>É Categoria de Resultado (Destacar em Azul & Centralizar)?</label>
+        <select id="modalVgsIsCat" class="smite-select">
+          <option value="false">Não (Comando Normal)</option>
+          <option value="true">Sim (Categoria de Resultado)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Upload de Áudio (Arquivo):</label>
+        <input type="file" id="modalVgsAudioFile" class="smite-input" accept="audio/*">
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+        <button class="smite-btn-sm smite-btn-danger" id="btnDeleteVgsRow" onclick="deleteVgsRow()" style="display:none;">🗑️ Excluir Comando</button>
+        <div style="display:flex; gap:8px; margin-left:auto;">
+          <button class="smite-btn-sm" onclick="closeModal('editVgsModal')">Cancelar</button>
+          <button class="smite-btn-sm" onclick="saveVgsModal()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR SOBRE -->
+  <div class="modal-overlay" id="aboutModal">
+    <div class="modal-box">
+      <div style="color:var(--wiki-gold-title); font-size:1.1rem; border-bottom:1px solid var(--wiki-gold-border); padding-bottom:6px;">EDITAR INFORMAÇÕES DO DEUS</div>
+      <div class="form-group"><label>Nome Panteão:</label><input type="text" id="aboutPantheonName" class="smite-input"></div>
+      <div class="form-group"><label>Ícone Panteão (Arquivo):</label><input type="file" id="aboutPantheonImgFile" class="smite-input" accept="image/*"></div>
+      <div class="form-group"><label>Nome Tipo:</label><input type="text" id="aboutTypeName" class="smite-input"></div>
+      <div class="form-group"><label>Ícone Tipo (Arquivo):</label><input type="file" id="aboutTypeImgFile" class="smite-input" accept="image/*"></div>
+      <div class="form-group"><label>Nome Classe:</label><input type="text" id="aboutClassName" class="smite-input"></div>
+      <div class="form-group"><label>Ícone Classe (Arquivo):</label><input type="file" id="aboutClassImgFile" class="smite-input" accept="image/*"></div>
+      <div class="form-group"><label>Frase Curta:</label><input type="text" id="aboutQuote" class="smite-input"></div>
+      <div class="form-group"><label>Dificuldade:</label><input type="text" id="aboutDifficulty" class="smite-input"></div>
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:10px;">
+        <button class="smite-btn-sm" onclick="closeModal('aboutModal')">Cancelar</button>
+        <button class="smite-btn-sm" onclick="saveAboutModal()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL INFORMAÇÕES -->
+  <div class="modal-overlay" id="vpHeaderModal">
+    <div class="modal-box">
+      <div style="color:var(--wiki-gold-title); font-size:1.1rem; border-bottom:1px solid var(--wiki-gold-border); padding-bottom:6px;">EDITAR INFORMAÇÕES DE DUBLAGEM</div>
+      <div class="form-group"><label>Dublador(a):</label><input type="text" id="modalVpDubber" class="smite-input"></div>
+      <div class="form-group"><label>Data de Lançamento:</label><input type="text" id="modalVpReleaseDate" class="smite-input"></div>
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:10px;">
+        <button class="smite-btn-sm" onclick="closeModal('vpHeaderModal')">Cancelar</button>
+        <button class="smite-btn-sm" onclick="saveVpHeaderModal()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR DEUS -->
+  <div class="modal-overlay" id="godModal">
+    <div class="modal-box">
+      <div style="color:var(--wiki-gold-title); font-size:1.1rem; border-bottom:1px solid var(--wiki-gold-border); padding-bottom:6px;" id="godModalTitle">GERENCIAR DEUS</div>
+      <div class="form-group"><label>Nome do Deus:</label><input type="text" id="modalGodName" class="smite-input"></div>
+      <div class="form-group"><label>Título:</label><input type="text" id="modalGodTitle" class="smite-input"></div>
+      <div class="form-group"><label>Imagem Padrão do Deus (Arquivo):</label><input type="file" id="modalGodImgFile" class="smite-input" accept="image/*"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+        <button class="smite-btn-sm smite-btn-danger" id="btnDeleteGod" onclick="deleteCurrentGod()">🗑️ Excluir Deus</button>
+        <div style="display:flex; gap:8px;">
+          <button class="smite-btn-sm" onclick="closeModal('godModal')">Cancelar</button>
+          <button class="smite-btn-sm" onclick="saveGodModal()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR HISTORIA -->
+  <div class="modal-overlay" id="loreModal">
+    <div class="modal-box">
+      <div style="color:var(--wiki-gold-title); font-size:1.1rem; border-bottom:1px solid var(--wiki-gold-border); padding-bottom:6px;">EDITAR HISTÓRIA COMPLETA</div>
+      <div class="form-group"><label>História:</label><textarea id="loreTextarea" class="smite-textarea" rows="8"></textarea></div>
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:10px;">
+        <button class="smite-btn-sm" onclick="closeModal('loreModal')">Cancelar</button>
+        <button class="smite-btn-sm" onclick="saveLoreModal()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR SKIN -->
+  <div class="modal-overlay" id="editSkinModal">
+    <div class="modal-box">
+      <div style="color:var(--wiki-gold-title); font-size:1.1rem; border-bottom:1px solid var(--wiki-gold-border); padding-bottom:6px;">GERENCIAR APARÊNCIA / SKIN</div>
+      <div class="form-group"><label>Nome da Skin:</label><input type="text" id="modalSkinName" class="smite-input"></div>
+      <div class="form-group">
+        <label>Tipo de Skin (Destaque do Card):</label>
+        <select id="modalSkinTier" class="smite-select">
+          <option value="PADRÃO">PADRÃO (Sem Banner Superior)</option>
+          <option value="PROMOCIONAL">PROMOCIONAL</option>
+          <option value="EXCLUSIVO">EXCLUSIVO</option>
+          <option value="LIMITADO">LIMITADO</option>
+          <option value="UNLIMITED">UNLIMITED / ILIMITADO</option>
+          <option value="CROSSOVER">CROSSOVER</option>
+          <option value="CROSS-GEN">CROSS-GEN</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Imagem da Skin (Arquivo):</label><input type="file" id="modalSkinImgFile" class="smite-input" accept="image/*"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+        <button class="smite-btn-sm smite-btn-danger" id="btnDeleteSkinCard" onclick="deleteCurrentSkinCard()">🗑️ Excluir Card</button>
+        <div style="display:flex; gap:8px;">
+          <button class="smite-btn-sm" onclick="closeModal('editSkinModal')">Cancelar</button>
+          <button class="smite-btn-sm" onclick="saveSkinModal()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isEditMode = true;
+
+    const defaultGodsDatabase = [
+      {
+        id: 'god_izanami',
+        name: 'IZANAMI',
+        title: 'MATRON OF THE DEAD',
+        pantheon: 'Japonês',
+        pantheonImg: 'https://images.unsplash.com/photo-1528164344705-47542687990d?q=80&w=100&auto=format&fit=crop',
+        type: 'Físico',
+        typeImg: 'https://images.unsplash.com/photo-1514539079130-25950c84af65?q=80&w=100&auto=format&fit=crop',
+        class: 'Caçador',
+        classImg: 'https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=100&auto=format&fit=crop',
+        miniQuote: 'Devastem o campo de batalha com foices mortais.',
+        difficulty: 'Média',
+        lore: 'Izanami foi a deusa japonesa da criação e da morte.',
+        dubber: 'Lisa Ortiz',
+        releaseDate: '15/09/2016',
+        img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop',
+        voiceTree: [
+          {
+            id: 'cat_general',
+            type: 'category',
+            title: 'FALAS GERAIS',
+            children: [
+              {
+                id: 'sub_match_start',
+                type: 'subcategory',
+                title: 'Entrada na Partida',
+                children: [
+                  { id: 'line_1', type: 'line', title: 'Fala 1', text: 'Izanami retornou para reivindicar os mortos.', audioUrl: '' }
+                ]
+              }
+            ]
+          }
+        ],
+        announcerTree: [],
+        skins: [
+          {
+            id: 'skin_default',
+            name: 'Padrão',
+            tier: 'PADRÃO',
+            dubber: 'Lisa Ortiz',
+            releaseDate: '15/09/2016',
+            img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop'
+          },
+          {
+            id: 'skin_rogue_android',
+            name: 'Rogue Android',
+            tier: 'EXCLUSIVO',
+            dubber: 'Dubladora Rogue Android',
+            releaseDate: '24/01/2017',
+            img: 'https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=400&auto=format&fit=crop'
+          },
+          {
+            id: 'skin_limited_example',
+            name: 'Plague Bearer',
+            tier: 'LIMITADO',
+            dubber: 'Lisa Ortiz',
+            releaseDate: '10/10/2018',
+            img: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=400&auto=format&fit=crop'
+          }
+        ]
+      }
+    ];
+
+    let godsDatabase = [];
+    let vgsDatabase = [
+      {
+        boxTitle: 'VGS',
+        rows: [
+          { code: 'G', result: 'General', isCategory: true, audioUrl: '' },
+          { code: 'V', result: 'Position', isCategory: true, audioUrl: '' },
+          { code: 'A', result: 'Ok!', isCategory: false, audioUrl: '' },
+          { code: 'B', result: 'Be right back!', isCategory: false, audioUrl: '' }
+        ]
+      }
+    ];
+
+    let selectedGodIdx = 0;
+    let selectedSkinIdx = 0;
+    let currentMode = 'gods';
+    let historyStack = ['main'];
+    let currentVPMode = 'god';
+
+    let editingGodIndex = null;
+    let editingSkinIndex = null;
+    let editingVgsBoxIdx = 0;
+    let editingVgsRowIdx = null;
+    let editingTreeTarget = null;
+
+    let currentPlayingAudio = null;
+    let currentPlayingBtn = null;
+
+    function getTierCssClass(tier) {
+      const t = (tier || 'PADRÃO').toUpperCase();
+      if (t === 'LIMITADO') return 'tier-limitado';
+      if (t === 'UNLIMITED' || t === 'ILIMITADO') return 'tier-unlimited';
+      if (t === 'CROSSOVER') return 'tier-crossover';
+      if (t === 'CROSS-GEN') return 'tier-crossgen';
+      if (t === 'PROMOCIONAL') return 'tier-promocional';
+      if (t === 'EXCLUSIVO' || t === 'EXCLUSIVE') return 'tier-exclusivo';
+      return 'tier-padrao';
+    }
+
+    function loadStorageData() {
+      const savedGods = localStorage.getItem('smite_gods_db');
+      if (savedGods) {
+        try {
+          const parsed = JSON.parse(savedGods);
+          if (Array.isArray(parsed) && parsed.length > 0) godsDatabase = parsed;
+          else godsDatabase = defaultGodsDatabase;
+        } catch(e) { godsDatabase = defaultGodsDatabase; }
+      } else {
+        godsDatabase = defaultGodsDatabase;
+      }
+
+      const savedVgs = localStorage.getItem('smite_vgs_db');
+      if (savedVgs) {
+        try {
+          const parsedVgs = JSON.parse(savedVgs);
+          if (Array.isArray(parsedVgs) && parsedVgs.length > 0) vgsDatabase = parsedVgs;
+        } catch(e) {}
+      }
+
+      const mainBg = localStorage.getItem('smite_main_bg');
+      if (mainBg) {
+        document.getElementById('screenMain').style.backgroundImage = `linear-gradient(rgba(4,6,8,0.7), rgba(4,6,8,0.85)), url('${mainBg}')`;
+      }
+    }
+
+    function saveStorageData() {
+      localStorage.setItem('smite_gods_db', JSON.stringify(godsDatabase));
+      localStorage.setItem('smite_vgs_db', JSON.stringify(vgsDatabase));
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStorageData();
+    });
+
+    function uploadMainBg(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = ev => {
+          const url = ev.target.result;
+          document.getElementById('screenMain').style.backgroundImage = `linear-gradient(rgba(4,6,8,0.7), rgba(4,6,8,0.85)), url('${url}')`;
+          localStorage.setItem('smite_main_bg', url);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function openSection(mode) {
+      currentMode = mode;
+      hideAll();
+      document.body.classList.remove('on-screen-main');
+      document.getElementById('screenRoster').style.display = 'flex';
+      document.getElementById('backBtn').style.display = 'flex';
+      renderRoster();
+      historyStack.push('roster');
+    }
+
+    function hideAll() {
+      document.getElementById('screenMain').style.display = 'none';
+      document.getElementById('screenRoster').style.display = 'none';
+      document.getElementById('screenGodView').style.display = 'none';
+      document.getElementById('screenVoicebankView').style.display = 'none';
+    }
+
+    function handleBack() {
+      if (historyStack.length > 1) {
+        historyStack.pop();
+        const last = historyStack[historyStack.length - 1];
+        hideAll();
+        if (last === 'main') {
+          document.body.classList.add('on-screen-main');
+          document.getElementById('screenMain').style.display = 'flex';
+          document.getElementById('backBtn').style.display = 'none';
+        } else if (last === 'roster') {
+          document.body.classList.remove('on-screen-main');
+          document.getElementById('screenRoster').style.display = 'flex';
+          document.getElementById('backBtn').style.display = 'flex';
+        }
+      }
+    }
+
+    function renderRoster() {
+      const grid = document.getElementById('rosterGrid');
+      grid.innerHTML = '';
+      const filter = document.getElementById('rosterSearch').value.toLowerCase();
+
+      godsDatabase.forEach((god, idx) => {
+        if (filter && !god.name.toLowerCase().includes(filter)) return;
+
+        const container = document.createElement('div');
+        container.className = 'god-card-container';
+        container.innerHTML = `
+          <button class="card-edit-btn edit-only" onclick="openGodModal(event, ${idx})">✏️</button>
+          <div class="smite-god-select-card" style="--card-bg-url: url('${god.img}'); background-image: linear-gradient(180deg, rgba(0,0,0,0.1) 40%, rgba(5,8,15,0.85) 100%), url('${god.img}');" onclick="selectGod(${idx})">
+            <div class="god-select-card-name">${god.name}</div>
+          </div>
+        `;
+        grid.appendChild(container);
+      });
+    }
+
+    function selectGod(idx) {
+      selectedGodIdx = idx;
+      selectedSkinIdx = 0;
+      hideAll();
+      document.body.classList.remove('on-screen-main');
+
+      if (currentMode === 'gods') {
+        document.getElementById('screenGodView').style.display = 'grid';
+        renderGodView();
+        historyStack.push('godView');
+      } else {
+        document.getElementById('screenVoicebankView').style.display = 'block';
+        renderVoicebankView();
+        switchVPMode('god');
+        historyStack.push('voicebankView');
+      }
+    }
+
+    function goToVoicebankFromGod() {
+      hideAll();
+      document.getElementById('screenVoicebankView').style.display = 'block';
+      renderVoicebankView();
+      switchVPMode('god');
+      historyStack.push('voicebankView');
+    }
+
+    function renderGodView() {
+      const god = godsDatabase[selectedGodIdx];
+      document.getElementById('extGodName').innerText = god.name;
+      document.getElementById('extGodTitle').innerText = god.title;
+      document.getElementById('godLoreText').innerText = god.lore || '';
+      document.getElementById('godMiniQuote').innerText = god.miniQuote || '';
+      document.getElementById('godDifficulty').innerText = 'DIFICULDADE - ' + (god.difficulty || 'Média');
+      
+      document.getElementById('pantheonName').innerText = god.pantheon || 'Japonês';
+      document.getElementById('typeName').innerText = god.type || 'Físico';
+      document.getElementById('className').innerText = god.class || 'Caçador';
+
+      if (god.pantheonImg) document.getElementById('pantheonImg').src = god.pantheonImg;
+      if (god.typeImg) document.getElementById('typeImg').src = god.typeImg;
+      if (god.classImg) document.getElementById('classImg').src = god.classImg;
+
+      document.getElementById('godStage').style.backgroundImage = `linear-gradient(rgba(2,4,6,0.65), rgba(2,4,6,0.92)), url('${god.img}')`;
+      renderSkinsTab();
+      switchGodTab('about');
+    }
+
+    function switchGodTab(tab) {
+      const god = godsDatabase[selectedGodIdx];
+
+      document.getElementById('tabBtnAbout').classList.remove('active');
+      document.getElementById('tabBtnSkins').classList.remove('active');
+      document.getElementById('tabBtnLore').classList.remove('active');
+
+      document.getElementById('godTabAbout').style.display = 'none';
+      document.getElementById('godTabSkins').style.display = 'none';
+      document.getElementById('godTabLore').style.display = 'none';
+
+      if (tab === 'about') {
+        document.getElementById('tabBtnAbout').classList.add('active');
+        document.getElementById('godTabAbout').style.display = 'flex';
+        document.getElementById('godStage').style.backgroundImage = `linear-gradient(rgba(2,4,6,0.65), rgba(2,4,6,0.92)), url('${god.img}')`;
+      } else if (tab === 'skins') {
+        document.getElementById('tabBtnSkins').classList.add('active');
+        document.getElementById('godTabSkins').style.display = 'flex';
+        const currentSkin = (god.skins && god.skins[selectedSkinIdx]) ? god.skins[selectedSkinIdx] : god;
+        document.getElementById('godStage').style.backgroundImage = `linear-gradient(rgba(2,4,6,0.65), rgba(2,4,6,0.92)), url('${currentSkin.img}')`;
+      } else if (tab === 'lore') {
+        document.getElementById('tabBtnLore').classList.add('active');
+        document.getElementById('godTabLore').style.display = 'flex';
+        document.getElementById('godStage').style.backgroundImage = `linear-gradient(rgba(2,4,6,0.65), rgba(2,4,6,0.92)), url('${god.img}')`;
+      }
+    }
+
+    function renderSkinsTab() {
+      const grid = document.getElementById('godSkinsGrid');
+      grid.innerHTML = '';
+      const god = godsDatabase[selectedGodIdx];
+
+      if(god.skins) {
+        god.skins.forEach((skin, idx) => {
+          const isPadrao = !skin.tier || skin.tier.toUpperCase() === 'PADRÃO';
+          const cssClass = getTierCssClass(skin.tier);
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'god-card-container';
+          wrapper.innerHTML = `
+            <button class="card-edit-btn edit-only" onclick="openSkinModal(event, ${idx})">✏️</button>
+            <div class="smite-skin-card-wrapper">
+              <div class="smite-skin-card" style="--skin-bg-url: url('${skin.img}'); background-image: linear-gradient(180deg, rgba(0,0,0,0.15) 30%, rgba(5,8,15,0.9) 100%), url('${skin.img}');" onclick="applySkinBackground(${idx})">
+                ${!isPadrao ? `<div class="skin-card-banner ${cssClass}"><span>${skin.tier.toUpperCase()}</span></div>` : '<div></div>'}
+              </div>
+              <div class="skin-card-bottom-title">${skin.name}</div>
+            </div>
+          `;
+          grid.appendChild(wrapper);
+        });
+      }
+    }
+
+    function applySkinBackground(idx) {
+      selectedSkinIdx = idx;
+      const skin = godsDatabase[selectedGodIdx].skins[idx];
+      const stage = document.getElementById('godStage');
+      
+      stage.classList.remove('skin-change-anim');
+      void stage.offsetWidth;
+      stage.classList.add('skin-change-anim');
+      stage.style.backgroundImage = `linear-gradient(rgba(2,4,6,0.65), rgba(2,4,6,0.92)), url('${skin.img}')`;
+    }
+
+    function renderVoicebankView() {
+      const god = godsDatabase[selectedGodIdx];
+      const hasSkinSelected = (selectedSkinIdx > 0 && god.skins && god.skins[selectedSkinIdx]);
+      const currentSkin = hasSkinSelected ? god.skins[selectedSkinIdx] : null;
+
+      document.getElementById('vpTitle').innerText = currentSkin ? currentSkin.name : god.name;
+      document.getElementById('vpImage').src = currentSkin ? currentSkin.img : god.img;
+
+      document.getElementById('vpDubber').innerText = currentSkin ? (currentSkin.dubber || 'Lisa Ortiz') : (god.dubber || 'Lisa Ortiz');
+      document.getElementById('vpReleaseDate').innerText = currentSkin ? (currentSkin.releaseDate || '15/09/2016') : (god.releaseDate || '15/09/2016');
+
+      const btnGod = document.getElementById('btnVpGod');
+      if (hasSkinSelected) {
+        btnGod.innerText = "VOZ DA APARÊNCIA";
+      } else {
+        btnGod.innerText = "VOZ DO DEUS";
+      }
+    }
+
+    function openVpHeaderModal() {
+      const god = godsDatabase[selectedGodIdx];
+      const currentSkin = (god.skins && god.skins[selectedSkinIdx]) ? god.skins[selectedSkinIdx] : null;
+
+      document.getElementById('modalVpDubber').value = currentSkin ? (currentSkin.dubber || '') : (god.dubber || '');
+      document.getElementById('modalVpReleaseDate').value = currentSkin ? (currentSkin.releaseDate || '') : (god.releaseDate || '');
+      document.getElementById('vpHeaderModal').style.display = 'flex';
+    }
+
+    function saveVpHeaderModal() {
+      const god = godsDatabase[selectedGodIdx];
+      const currentSkin = (god.skins && god.skins[selectedSkinIdx]) ? god.skins[selectedSkinIdx] : null;
+
+      const dub = document.getElementById('modalVpDubber').value;
+      const relDate = document.getElementById('modalVpReleaseDate').value;
+
+      if (currentSkin) {
+        currentSkin.dubber = dub;
+        currentSkin.releaseDate = relDate;
+      } else {
+        god.dubber = dub;
+        god.releaseDate = relDate;
+      }
+
+      saveStorageData();
+      renderVoicebankView();
+      closeModal('vpHeaderModal');
+    }
+
+    function switchVPMode(mode) {
+      currentVPMode = mode;
+      document.querySelectorAll('.wiki-btn-menu').forEach(b => b.classList.remove('active'));
+      const btnMap = { 'god': 'btnVpGod', 'skin': 'btnVpSkin', 'announcer': 'btnVpAnnouncer', 'vgs': 'btnVpVGS' };
+      if (btnMap[mode]) document.getElementById(btnMap[mode]).classList.add('active');
+
+      const vgsGroup = document.getElementById('vgsContainerGroup');
+      const panel = document.getElementById('vpDynamicPanel');
+      const skinPanel = document.getElementById('vpSkinSelectionPanel');
+
+      if (mode === 'vgs') {
+        vgsGroup.style.display = 'flex';
+        panel.style.display = 'none';
+        skinPanel.style.display = 'none';
+        renderVgsWikiTables();
+        return;
+      }
+
+      if (mode === 'skin') {
+        vgsGroup.style.display = 'none';
+        panel.style.display = 'none';
+        skinPanel.style.display = 'block';
+        renderVpSkinCardsPanel();
+        return;
+      }
+
+      vgsGroup.style.display = 'none';
+      skinPanel.style.display = 'none';
+      panel.style.display = 'block';
+
+      renderVoiceTreePanel();
+    }
+
+    function renderVoiceTreePanel() {
+      const god = godsDatabase[selectedGodIdx];
+      const hasSkinSelected = (selectedSkinIdx > 0 && god.skins && god.skins[selectedSkinIdx]);
+      const currentSkin = hasSkinSelected ? god.skins[selectedSkinIdx] : null;
+      const targetName = currentSkin ? currentSkin.name.toUpperCase() : god.name;
+
+      const container = document.getElementById('voiceTreeContainer');
+      container.innerHTML = '';
+
+      if (currentVPMode === 'god') {
+        document.getElementById('vpSectionTitle').innerText = `FALAS DE ${targetName}`;
+        const tree = getActiveTree();
+        renderTreeNodes(tree, container);
+      } else if (currentVPMode === 'announcer') {
+        document.getElementById('vpSectionTitle').innerText = `PACOTE DE LOCUTOR DE ${targetName}`;
+        const tree = getActiveTree();
+        renderTreeNodes(tree, container);
+      }
+    }
+
+    function renderTreeNodes(nodes, containerElement) {
+      nodes.forEach(node => {
+        if (node.type === 'category') {
+          const catBox = document.createElement('div');
+          catBox.className = 'tree-category-box';
+          catBox.innerHTML = `
+            <div class="tree-category-title">
+              <span>${node.title}</span>
+              <button class="smite-btn-sm edit-only" onclick="openTreeModalForEdit('${node.id}')">✏️</button>
+            </div>
+            <div class="category-children-container" id="container_${node.id}"></div>
+          `;
+          containerElement.appendChild(catBox);
+          if (node.children) renderTreeNodes(node.children, catBox.querySelector(`#container_${node.id}`));
+        } else if (node.type === 'subcategory') {
+          const subBox = document.createElement('div');
+          subBox.className = 'tree-subcategory-box';
+          subBox.innerHTML = `
+            <div class="tree-subcategory-title">
+              <span>${node.title}</span>
+              <button class="smite-btn-sm edit-only" onclick="openTreeModalForEdit('${node.id}')">✏️</button>
+            </div>
+            <div class="subcategory-children-container" id="container_${node.id}"></div>
+          `;
+          containerElement.appendChild(subBox);
+          if (node.children) renderTreeNodes(node.children, subBox.querySelector(`#container_${node.id}`));
+        } else if (node.type === 'line') {
+          if (!node.text && (!node.title || node.title.trim() === '')) return;
+
+          const lineCard = document.createElement('div');
+          lineCard.className = 'voice-line-item';
+          const hasTitle = node.title && node.title.trim() !== '' && node.title.toLowerCase() !== 'sem título';
+          lineCard.innerHTML = `
+            <div>
+              ${hasTitle ? `<div style="color:var(--wiki-gold-title); font-size:0.88rem;">${node.title}</div>` : ''}
+              <div style="font-size:0.85rem; color:#cbd5e1;">"${node.text}"</div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              ${node.audioUrl ? `
+                <button class="vgs-play-btn" onclick="playCustomAudio('${node.audioUrl}', this)" title="Tocar / Pausar Fala">
+                  <svg class="audio-svg-icon default-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                  <svg class="audio-svg-icon playing-icon" viewBox="0 0 24 24" width="18" height="18" style="display:none;"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+              ` : ''}
+              <button class="smite-btn-sm edit-only" onclick="openTreeModalForEdit('${node.id}')">✏️</button>
+            </div>
+          `;
+          containerElement.appendChild(lineCard);
+        }
+      });
+    }
+
+    function renderVpSkinCardsPanel() {
+      const god = godsDatabase[selectedGodIdx];
+      const grid = document.getElementById('vpSkinCardsGrid');
+      grid.innerHTML = '';
+
+      if (god.skins) {
+        god.skins.forEach((skin, idx) => {
+          const isPadrao = !skin.tier || skin.tier.toUpperCase() === 'PADRÃO';
+          const cssClass = getTierCssClass(skin.tier);
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'god-card-container';
+          wrapper.innerHTML = `
+            <button class="card-edit-btn edit-only" onclick="openSkinModal(event, ${idx})">✏️</button>
+            <div class="smite-skin-card-wrapper">
+              <div class="smite-skin-card" style="--skin-bg-url: url('${skin.img}'); background-image: linear-gradient(180deg, rgba(0,0,0,0.15) 30%, rgba(5,8,15,0.9) 100%), url('${skin.img}');" onclick="selectVpSkinCard(${idx})">
+                ${!isPadrao ? `<div class="skin-card-banner ${cssClass}"><span>${skin.tier.toUpperCase()}</span></div>` : '<div></div>'}
+              </div>
+              <div class="skin-card-bottom-title">${skin.name}</div>
+            </div>
+          `;
+          grid.appendChild(wrapper);
+        });
+      }
+    }
+
+    function selectVpSkinCard(idx) {
+      selectedSkinIdx = idx;
+      renderVoicebankView();
+      switchVPMode('god');
+    }
+
+    function renderVgsWikiTables() {
+      const container = document.getElementById('vgsTablesList');
+      container.innerHTML = '';
+
+      getActiveVgs().forEach((box, boxIdx) => {
+        const wikiBox = document.createElement('div');
+
+        let rowsHtml = '';
+        box.rows.forEach((row, rowIdx) => {
+          const hasAudio = !!row.audioUrl;
+          const resultCellClass = row.isCategory ? "vgs-outcome-cell is-category-result" : "vgs-outcome-cell";
+
+          const resultHtml = row.isCategory 
+            ? `<span class="vgs-category-highlight">${row.result}</span>` 
+            : `"${row.result}"`;
+
+          rowsHtml += `
+            <tr>
+              <td class="vgs-code-cell">${row.code}</td>
+              <td class="${resultCellClass}">${resultHtml}</td>
+              <td style="width: 60px; text-align:center;">
+                ${hasAudio ? `
+                  <button class="vgs-play-btn" onclick="playCustomAudio('${row.audioUrl}', this)" title="Reproduzir / Pausar VGS">
+                    <svg class="audio-svg-icon default-icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                    <svg class="audio-svg-icon playing-icon" viewBox="0 0 24 24" width="18" height="18" style="display:none;"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                  </button>
+                ` : ''}
+              </td>
+              <td class="edit-only" style="width: 40px; text-align:center;">
+                <button style="background:none; border:none; color:var(--wiki-gold-title); cursor:pointer;" onclick="openVgsModalForEdit(${boxIdx}, ${rowIdx})">✏️</button>
+              </td>
+            </tr>
+          `;
+        });
+
+        wikiBox.innerHTML = `
+          <div class="vgs-outside-title">
+            <span>${box.boxTitle || 'VGS'}</span>
+            <button class="smite-btn-sm edit-only" onclick="openVgsModalForBoxEdit(${boxIdx})">✏️ Editar Título</button>
+          </div>
+          <div class="vgs-wiki-box">
+            <table class="vgs-wiki-table">
+              <thead>
+                <tr>
+                  <th style="width: 100px; text-align:left;">VGS</th>
+                  <th style="text-align:center;">Outcome</th>
+                  <th style="width: 60px; text-align:center;"></th>
+                  <th class="edit-only" style="width: 40px;"></th>
+                </tr>
+              </thead>
+              <tbody>${rowsHtml}</tbody>
+            </table>
+          </div>
+        `;
+        container.appendChild(wikiBox);
+      });
+    }
+
+    function handleGlobalEditClick() {
+      if (currentVPMode === 'vgs') {
+        const vgsList = getActiveVgs();
+        openVgsModalForBoxEdit(vgsList.length);
+      } else if (currentVPMode === 'god' || currentVPMode === 'announcer') {
+        openTreeModalForAdd();
+      } else if (currentVPMode === 'skin') {
+        openSkinModal(null, null);
+      }
+    }
+
+    function openVgsModalForBoxEdit(boxIdx) {
+      editingVgsBoxIdx = boxIdx;
+      editingVgsRowIdx = null;
+      const vgsList = getActiveVgs();
+      if (boxIdx !== null && boxIdx < vgsList.length) {
+        document.getElementById('modalVgsBoxTitle').value = vgsList[boxIdx].boxTitle || 'VGS';
+      } else {
+        document.getElementById('modalVgsBoxTitle').value = 'NOVA CAIXA VGS';
+      }
+      document.getElementById('modalVgsCode').value = '';
+      document.getElementById('modalVgsResult').value = '';
+      document.getElementById('btnDeleteVgsRow').style.display = 'none';
+      document.getElementById('editVgsModal').style.display = 'flex';
+    }
+
+    function openVgsModalForEdit(boxIdx, rowIdx) {
+      const vgsList = getActiveVgs();
+      if (vgsList.length === 0) {
+        vgsList.push({ boxTitle: 'VGS', rows: [] });
+        boxIdx = 0;
+      }
+      if (boxIdx === null || boxIdx >= vgsList.length) boxIdx = 0;
+
+      editingVgsBoxIdx = boxIdx;
+      editingVgsRowIdx = rowIdx;
+      document.getElementById('modalVgsBoxTitle').value = vgsList[boxIdx].boxTitle || 'VGS';
+
+      if (rowIdx !== null && rowIdx !== undefined && vgsList[boxIdx].rows[rowIdx]) {
+        const row = vgsList[boxIdx].rows[rowIdx];
+        document.getElementById('modalVgsCode').value = row.code;
+        document.getElementById('modalVgsResult').value = row.result;
+        document.getElementById('modalVgsIsCat').value = row.isCategory ? "true" : "false";
+        document.getElementById('btnDeleteVgsRow').style.display = 'inline-block';
+      } else {
+        document.getElementById('modalVgsCode').value = '';
+        document.getElementById('modalVgsResult').value = '';
+        document.getElementById('modalVgsIsCat').value = "false";
+        document.getElementById('btnDeleteVgsRow').style.display = 'none';
+      }
+      document.getElementById('editVgsModal').style.display = 'flex';
+    }
+
+    function saveVgsModal() {
+      const vgsList = getActiveVgs();
+      const titleInput = document.getElementById('modalVgsBoxTitle').value.trim() || 'VGS';
+      const code = document.getElementById('modalVgsCode').value.trim().toUpperCase();
+      const result = document.getElementById('modalVgsResult').value.trim();
+      const isCat = document.getElementById('modalVgsIsCat').value === "true";
+      const file = document.getElementById('modalVgsAudioFile').files[0];
+
+      let targetBox;
+      if (editingVgsBoxIdx !== null && editingVgsBoxIdx < vgsList.length) {
+        targetBox = vgsList[editingVgsBoxIdx];
+        targetBox.boxTitle = titleInput;
+      } else {
+        targetBox = { boxTitle: titleInput, rows: [] };
+        vgsList.push(targetBox);
+        editingVgsBoxIdx = vgsList.length - 1;
+      }
+
+      if (code && result) {
+        if (editingVgsRowIdx !== null && editingVgsRowIdx !== undefined && targetBox.rows[editingVgsRowIdx]) {
+          const row = targetBox.rows[editingVgsRowIdx];
+          row.code = code;
+          row.result = result;
+          row.isCategory = isCat;
+          if (file) {
+            const r = new FileReader();
+            r.onload = e => {
+              row.audioUrl = e.target.result;
+              saveStorageData();
+              renderVgsWikiTables();
+              closeModal('editVgsModal');
+            };
+            r.readAsDataURL(file);
+            return;
+          }
+        } else {
+          const newRow = { code: code, result: result, isCategory: isCat, audioUrl: '' };
+          if (file) {
+            const r = new FileReader();
+            r.onload = e => {
+              newRow.audioUrl = e.target.result;
+              targetBox.rows.push(newRow);
+              saveStorageData();
+              renderVgsWikiTables();
+              closeModal('editVgsModal');
+            };
+            r.readAsDataURL(file);
+            return;
+          } else {
+            targetBox.rows.push(newRow);
+          }
+        }
+      }
+
+      saveStorageData();
+      renderVgsWikiTables();
+      closeModal('editVgsModal');
+    }
+
+    function deleteVgsRow() {
+      const vgsList = getActiveVgs();
+      if (editingVgsBoxIdx !== null && editingVgsRowIdx !== null && vgsList[editingVgsBoxIdx]) {
+        vgsList[editingVgsBoxIdx].rows.splice(editingVgsRowIdx, 1);
+        saveStorageData();
+        renderVgsWikiTables();
+        closeModal('editVgsModal');
+      }
+    }
+
+    function getActiveTree() {
+      const god = godsDatabase[selectedGodIdx];
+      const hasSkinSelected = (selectedSkinIdx > 0 && god.skins && god.skins[selectedSkinIdx]);
+      const targetObj = hasSkinSelected ? god.skins[selectedSkinIdx] : god;
+
+      if (currentVPMode === 'announcer') {
+        if (!targetObj.announcerTree) targetObj.announcerTree = [];
+        return targetObj.announcerTree;
+      }
+      if (!targetObj.voiceTree) targetObj.voiceTree = [];
+      return targetObj.voiceTree;
+    }
+
+    function openTreeModalForAdd() {
+      editingTreeTarget = null;
+      document.getElementById('modalTreeType').value = 'line';
+      document.getElementById('modalTreeTitle').value = '';
+      document.getElementById('modalTreeText').value = '';
+      document.getElementById('btnDeleteTreeItem').style.display = 'none';
+      populateParentDropdown();
+      toggleTreeModalFields();
+      document.getElementById('voiceCategoryLineModal').style.display = 'flex';
+    }
+
+    function openTreeModalForEdit(nodeId) {
+      const tree = getActiveTree();
+      const node = findNodeInTree(tree, nodeId);
+      if (!node) return;
+
+      editingTreeTarget = node;
+      document.getElementById('modalTreeType').value = node.type;
+      document.getElementById('modalTreeTitle').value = node.title || '';
+      document.getElementById('modalTreeText').value = node.text || '';
+      document.getElementById('btnDeleteTreeItem').style.display = 'inline-block';
+      populateParentDropdown(nodeId);
+      toggleTreeModalFields();
+      document.getElementById('voiceCategoryLineModal').style.display = 'flex';
+    }
+
+    function toggleTreeModalFields() {
+      const type = document.getElementById('modalTreeType').value;
+      if (type === 'line') {
+        document.getElementById('groupTreeTitle').style.display = 'flex';
+        document.getElementById('labelTreeTitle').innerText = 'Título da Fala:';
+        document.getElementById('groupTreeText').style.display = 'flex';
+        document.getElementById('groupTreeParent').style.display = 'flex';
+        document.getElementById('groupTreeAudio').style.display = 'flex';
+      } else if (type === 'category') {
+        document.getElementById('groupTreeTitle').style.display = 'flex';
+        document.getElementById('labelTreeTitle').innerText = 'Nome da Categoria:';
+        document.getElementById('groupTreeText').style.display = 'none';
+        document.getElementById('groupTreeParent').style.display = 'none';
+        document.getElementById('groupTreeAudio').style.display = 'none';
+      } else if (type === 'subcategory') {
+        document.getElementById('groupTreeTitle').style.display = 'flex';
+        document.getElementById('labelTreeTitle').innerText = 'Nome da Subcategoria:';
+        document.getElementById('groupTreeText').style.display = 'none';
+        document.getElementById('groupTreeParent').style.display = 'flex';
+        document.getElementById('groupTreeAudio').style.display = 'none';
+      }
+    }
+
+    function populateParentDropdown(excludeId = null) {
+      const select = document.getElementById('modalTreeParentSelect');
+      select.innerHTML = '<option value="root">-- Raiz (Sem Pai) --</option>';
+      const tree = getActiveTree();
+
+      function walk(nodes, depth = 0) {
+        nodes.forEach(n => {
+          if (n.id === excludeId) return;
+          if (n.type === 'category' || n.type === 'subcategory') {
+            const prefix = '--'.repeat(depth);
+            const opt = document.createElement('option');
+            opt.value = n.id;
+            opt.innerText = `${prefix} ${n.title} (${n.type})`;
+            select.appendChild(opt);
+            if (n.children) walk(n.children, depth + 1);
+          }
+        });
+      }
+      walk(tree);
+
+      if (editingTreeTarget) {
+        const parent = findParentNodeInTree(tree, editingTreeTarget.id);
+        if (parent) select.value = parent.id;
+      }
+    }
+
+    function saveTreeModal() {
+      const tree = getActiveTree();
+      const type = document.getElementById('modalTreeType').value;
+      const title = document.getElementById('modalTreeTitle').value.trim();
+      const text = document.getElementById('modalTreeText').value.trim();
+      const parentId = document.getElementById('modalTreeParentSelect').value;
+      const file = document.getElementById('modalTreeAudioFile').files[0];
+
+      if (type === 'line' && !text) {
+        alert('Por favor, insira o texto da fala.');
+        return;
+      }
+      if ((type === 'category' || type === 'subcategory') && !title) {
+        alert('Por favor, insira o título.');
+        return;
+      }
+
+      if (editingTreeTarget) {
+        removeNodeFromTree(tree, editingTreeTarget.id);
+        editingTreeTarget.type = type;
+        editingTreeTarget.title = title;
+        editingTreeTarget.text = text;
+
+        if (parentId !== 'root') {
+          const pNode = findNodeInTree(tree, parentId);
+          if (pNode) {
+            if (!pNode.children) pNode.children = [];
+            pNode.children.push(editingTreeTarget);
+          } else {
+            tree.push(editingTreeTarget);
+          }
+        } else {
+          tree.push(editingTreeTarget);
+        }
+
+        if (file) {
+          const r = new FileReader();
+          r.onload = e => {
+            editingTreeTarget.audioUrl = e.target.result;
+            saveStorageData();
+            renderVoiceTreePanel();
+            closeModal('voiceCategoryLineModal');
+          };
+          r.readAsDataURL(file);
+          return;
+        }
+      } else {
+        const newNode = { id: 'node_' + Date.now(), type: type, title: title, text: text, children: [], audioUrl: '' };
+        if (parentId === 'root') {
+          tree.push(newNode);
+        } else {
+          const pNode = findNodeInTree(tree, parentId);
+          if (pNode) {
+            if (!pNode.children) pNode.children = [];
+            pNode.children.push(newNode);
+          } else {
+            tree.push(newNode);
+          }
+        }
+
+        if (file) {
+          const r = new FileReader();
+          r.onload = e => {
+            newNode.audioUrl = e.target.result;
+            saveStorageData();
+            renderVoiceTreePanel();
+            closeModal('voiceCategoryLineModal');
+          };
+          r.readAsDataURL(file);
+          return;
+        }
+      }
+
+      saveStorageData();
+      renderVoiceTreePanel();
+      closeModal('voiceCategoryLineModal');
+    }
+
+    function deleteTreeItem() {
+      if (editingTreeTarget) {
+        const tree = getActiveTree();
+        removeNodeFromTree(tree, editingTreeTarget.id);
+        saveStorageData();
+        renderVoiceTreePanel();
+        closeModal('voiceCategoryLineModal');
+      }
+    }
+
+    function findNodeInTree(nodes, id) {
+      for (let n of nodes) {
+        if (n.id === id) return n;
+        if (n.children) {
+          let found = findNodeInTree(n.children, id);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+
+    function findParentNodeInTree(nodes, id) {
+      for (let n of nodes) {
+        if (n.children && n.children.some(c => c.id === id)) return n;
+        if (n.children) {
+          let found = findParentNodeInTree(n.children, id);
+          if (found) return found;
+        }
+      }
+      return null;
+    }
+
+    function removeNodeFromTree(nodes, id) {
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].id === id) {
+          nodes.splice(i, 1);
+          return true;
+        }
+        if (nodes[i].children) {
+          let removed = removeNodeFromTree(nodes[i].children, id);
+          if (removed) return true;
+        }
+      }
+      return false;
+    }
+
+    function openGodModal(event, idx) {
+      if (event) event.stopPropagation();
+      editingGodIndex = idx;
+      if (idx !== null && idx !== undefined) {
+        const god = godsDatabase[idx];
+        document.getElementById('godModalTitle').innerText = 'EDITAR DEUS';
+        document.getElementById('modalGodName').value = god.name;
+        document.getElementById('modalGodTitle').value = god.title;
+        document.getElementById('btnDeleteGod').style.display = 'inline-block';
+      } else {
+        document.getElementById('godModalTitle').innerText = 'NOVO DEUS';
+        document.getElementById('modalGodName').value = '';
+        document.getElementById('modalGodTitle').value = '';
+        document.getElementById('btnDeleteGod').style.display = 'none';
+      }
+      document.getElementById('godModal').style.display = 'flex';
+    }
+
+    function saveGodModal() {
+      const name = document.getElementById('modalGodName').value || 'NOVO DEUS';
+      const title = document.getElementById('modalGodTitle').value || 'TÍTULO';
+      const fileInput = document.getElementById('modalGodImgFile');
+
+      if (editingGodIndex !== null && editingGodIndex !== undefined) {
+        const god = godsDatabase[editingGodIndex];
+        god.name = name;
+        god.title = title;
+        if (fileInput.files[0]) {
+          const r = new FileReader();
+          r.onload = e => {
+            god.img = e.target.result;
+            saveStorageData();
+            renderRoster();
+            closeModal('godModal');
+          };
+          r.readAsDataURL(fileInput.files[0]);
+          return;
+        }
+      } else {
+        const newGod = {
+          id: 'god_' + Date.now(),
+          name: name,
+          title: title,
+          pantheon: 'Japonês',
+          type: 'Físico',
+          class: 'Caçador',
+          miniQuote: 'Frase curta...',
+          difficulty: 'Média',
+          lore: 'História do novo deus...',
+          dubber: 'Lisa Ortiz',
+          releaseDate: '15/09/2016',
+          img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop',
+          skins: [],
+          voiceTree: []
+        };
+        if (fileInput.files[0]) {
+          const r = new FileReader();
+          r.onload = e => {
+            newGod.img = e.target.result;
+            godsDatabase.push(newGod);
+            saveStorageData();
+            renderRoster();
+            closeModal('godModal');
+          };
+          r.readAsDataURL(fileInput.files[0]);
+          return;
+        } else {
+          godsDatabase.push(newGod);
+        }
+      }
+
+      saveStorageData();
+      renderRoster();
+      closeModal('godModal');
+    }
+
+    function deleteCurrentGod() {
+      if (editingGodIndex !== null && editingGodIndex !== undefined) {
+        godsDatabase.splice(editingGodIndex, 1);
+        saveStorageData();
+        renderRoster();
+        closeModal('godModal');
+      }
+    }
+
+    function openAboutModal() {
+      const god = godsDatabase[selectedGodIdx];
+      document.getElementById('aboutPantheonName').value = god.pantheon || '';
+      document.getElementById('aboutTypeName').value = god.type || '';
+      document.getElementById('aboutClassName').value = god.class || '';
+      document.getElementById('aboutQuote').value = god.miniQuote || '';
+      document.getElementById('aboutDifficulty').value = god.difficulty || '';
+      document.getElementById('aboutModal').style.display = 'flex';
+    }
+
+    function saveAboutModal() {
+      const god = godsDatabase[selectedGodIdx];
+      god.pantheon = document.getElementById('aboutPantheonName').value;
+      god.type = document.getElementById('aboutTypeName').value;
+      god.class = document.getElementById('aboutClassName').value;
+      god.miniQuote = document.getElementById('aboutQuote').value;
+      god.difficulty = document.getElementById('aboutDifficulty').value;
+
+      const pFile = document.getElementById('aboutPantheonImgFile').files[0];
+      const tFile = document.getElementById('aboutTypeImgFile').files[0];
+      const cFile = document.getElementById('aboutClassImgFile').files[0];
+
+      let pending = 0;
+      const checkDone = () => {
+        pending--;
+        if (pending <= 0) {
+          saveStorageData();
+          renderGodView();
+          closeModal('aboutModal');
+        }
+      };
+
+      if (pFile) {
+        pending++;
+        const r = new FileReader();
+        r.onload = e => { god.pantheonImg = e.target.result; checkDone(); };
+        r.readAsDataURL(pFile);
+      }
+      if (tFile) {
+        pending++;
+        const r = new FileReader();
+        r.onload = e => { god.typeImg = e.target.result; checkDone(); };
+        r.readAsDataURL(tFile);
+      }
+      if (cFile) {
+        pending++;
+        const r = new FileReader();
+        r.onload = e => { god.classImg = e.target.result; checkDone(); };
+        r.readAsDataURL(cFile);
+      }
+
+      if (pending === 0) {
+        saveStorageData();
+        renderGodView();
+        closeModal('aboutModal');
+      }
+    }
+
+    function openLoreModal() {
+      document.getElementById('loreTextarea').value = godsDatabase[selectedGodIdx].lore || '';
+      document.getElementById('loreModal').style.display = 'flex';
+    }
+
+    function saveLoreModal() {
+      godsDatabase[selectedGodIdx].lore = document.getElementById('loreTextarea').value;
+      saveStorageData();
+      renderGodView();
+      closeModal('loreModal');
+    }
+
+    function openSkinModal(event, idx) {
+      if(event) event.stopPropagation();
+      editingSkinIndex = idx;
+      if (idx !== null && idx !== undefined) {
+        const skin = godsDatabase[selectedGodIdx].skins[idx];
+        document.getElementById('modalSkinName').value = skin.name;
+        document.getElementById('modalSkinTier').value = (skin.tier || 'PADRÃO').toUpperCase();
+        document.getElementById('btnDeleteSkinCard').style.display = 'inline-block';
+      } else {
+        document.getElementById('modalSkinName').value = 'Nova Skin';
+        document.getElementById('modalSkinTier').value = 'EXCLUSIVO';
+        document.getElementById('btnDeleteSkinCard').style.display = 'none';
+      }
+      document.getElementById('editSkinModal').style.display = 'flex';
+    }
+
+    function saveSkinModal() {
+      const god = godsDatabase[selectedGodIdx];
+      if(!god.skins) god.skins = [];
+      const name = document.getElementById('modalSkinName').value;
+      const tier = document.getElementById('modalSkinTier').value;
+      const fileInput = document.getElementById('modalSkinImgFile');
+
+      if (editingSkinIndex !== null && editingSkinIndex !== undefined) {
+        const skin = god.skins[editingSkinIndex];
+        skin.name = name;
+        skin.tier = tier;
+        if (fileInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            skin.img = e.target.result;
+            saveStorageData();
+            renderSkinsTab();
+            renderVpSkinCardsPanel();
+            closeModal('editSkinModal');
+          };
+          reader.readAsDataURL(fileInput.files[0]);
+          return;
+        }
+      } else {
+        const newSkin = { id: 'skin_' + Date.now(), name: name, tier: tier, img: god.img };
+        if (fileInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            newSkin.img = e.target.result;
+            god.skins.push(newSkin);
+            saveStorageData();
+            renderSkinsTab();
+            renderVpSkinCardsPanel();
+            closeModal('editSkinModal');
+          };
+          reader.readAsDataURL(fileInput.files[0]);
+          return;
+        } else {
+          god.skins.push(newSkin);
+        }
+      }
+
+      saveStorageData();
+      renderSkinsTab();
+      renderVpSkinCardsPanel();
+      closeModal('editSkinModal');
+    }
+
+    function deleteCurrentSkinCard() {
+      if (editingSkinIndex !== null && editingSkinIndex !== undefined) {
+        godsDatabase[selectedGodIdx].skins.splice(editingSkinIndex, 1);
+        saveStorageData();
+        renderSkinsTab();
+        renderVpSkinCardsPanel();
+        closeModal('editSkinModal');
+      }
+    }
+
+    function openSettingsModal() {
+      document.getElementById('settingsModal').style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function toggleEditModeSimple() {
+      isEditMode = !isEditMode;
+      const btn = document.getElementById('editToggleBtn');
+      if (isEditMode) {
+        document.body.classList.remove('edit-mode-off');
+        btn.innerText = 'ON';
+      } else {
+        document.body.classList.add('edit-mode-off');
+        btn.innerText = 'OFF';
+      }
+    }
+
+    let audioVolume = 1.0;
+
+    function updateAudioVolume(val) {
+      audioVolume = val / 100;
+      document.getElementById('volumeValText').innerText = val + '%';
+      localStorage.setItem('smite_audio_volume', audioVolume);
+    }
+
+    function getActiveVgs() {
+      const god = godsDatabase[selectedGodIdx];
+      const hasSkinSelected = (selectedSkinIdx > 0 && god.skins && god.skins[selectedSkinIdx]);
+      const targetObj = hasSkinSelected ? god.skins[selectedSkinIdx] : god;
+      if (!targetObj.vgsDatabase) {
+        targetObj.vgsDatabase = [
+          {
+            boxTitle: 'VGS',
+            rows: [
+              { code: 'G', result: 'General', isCategory: true, audioUrl: '' },
+              { code: 'V', result: 'Position', isCategory: true, audioUrl: '' },
+              { code: 'A', result: 'Ok!', isCategory: false, audioUrl: '' },
+              { code: 'B', result: 'Be right back!', isCategory: false, audioUrl: '' }
+            ]
+          }
+        ];
+      }
+      return targetObj.vgsDatabase;
+    }
+
+    function playCustomAudio(url, btnElement) {
+      if (!url) return;
+
+      if (currentPlayingAudio && currentPlayingBtn === btnElement) {
+        currentPlayingAudio.pause();
+        currentPlayingAudio.currentTime = 0;
+        resetAudioBtnState(btnElement);
+        currentPlayingAudio = null;
+        currentPlayingBtn = null;
+        return;
+      }
+
+      if (currentPlayingAudio) {
+        currentPlayingAudio.pause();
+        currentPlayingAudio.currentTime = 0;
+        if (currentPlayingBtn) resetAudioBtnState(currentPlayingBtn);
+      }
+
+      const audio = new Audio(url);
+      audio.volume = audioVolume;
+      currentPlayingAudio = audio;
+      currentPlayingBtn = btnElement;
+
+      if (btnElement) {
+        setAudioBtnPlayingState(btnElement);
+      }
+
+      audio.play().catch(e => console.log(e));
+
+      audio.onended = () => {
+        if (btnElement) resetAudioBtnState(btnElement);
+        if (currentPlayingAudio === audio) {
+          currentPlayingAudio = null;
+          currentPlayingBtn = null;
+        }
+      };
+    }
+
+    function setAudioBtnPlayingState(btnElement) {
+      btnElement.classList.add('is-playing');
+      const defaultIcon = btnElement.querySelector('.default-icon');
+      const playingIcon = btnElement.querySelector('.playing-icon');
+      if (defaultIcon && playingIcon) {
+        defaultIcon.style.display = 'none';
+        playingIcon.style.display = 'inline-block';
+      }
+    }
+
+    function resetAudioBtnState(btnElement) {
+      btnElement.classList.remove('is-playing');
+      const defaultIcon = btnElement.querySelector('.default-icon');
+      const playingIcon = btnElement.querySelector('.playing-icon');
+      if (defaultIcon && playingIcon) {
+        defaultIcon.style.display = 'inline-block';
+        playingIcon.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
